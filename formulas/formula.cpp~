@@ -15,20 +15,20 @@ int main(int argc, char* argv[])
       //Sets all local variables to 0 first
       int p_level, p_atk, p_damage, m_level, m_atk, m_damage = 0;
       double p_def, m_def = 0;
-      
+
       //Pet Stats
-      p_level = argv[1];
-      p_atk = argv[2];
-      p_def = argv[3];
+      p_level = atoi(argv[1]);
+      p_atk = atoi(argv[2]);
+      p_def = atoi(argv[3]);
 
       //Monster Stats
-      m_level = argv[4];
-      m_atk = argv[5];
-      m_def = argv[6];
+      m_level = atoi(argv[4]);
+      m_atk = atoi(argv[5]);
+      m_def = atoi(argv[6]);
 
       //Attacks useful only if hit ratio is greater then random number else no damage is dealt
-      m_damage = round((((m_atk + 3)/pow(p_def, 0.5))+pow(m_level,0.7))*.8);
-      p_damage = round((((p_atk + 3)/pow(m_def, 0.5))+pow(p_level,0.7))*.8);
+      m_damage = round((((m_atk + 3)/pow(p_def, 0.5))+pow(m_level,0.7))*(.8+.4));
+      p_damage = round((((p_atk + 3)/pow(m_def, 0.5))+pow(p_level,0.7))*(.8+.4));
       std::cout << "Pet Damage dealt is: " << p_damage << std::endl;
       std::cout << "Monster Damage dealt is: " << m_damage << std::endl;
    }
