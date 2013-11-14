@@ -1,25 +1,26 @@
 #include <iostream>
 #include <stdlib.h>
-int main()
+int main(int argc, char* argv[])
 {
    //Checks the arguements of argc to see if they are correct
    if (argc < 3 || argc > 3) 
    {
       std::cout << "Monster is represented by m, Pet is represented by p.\n";
-      std::cout << "Usage is p_level, p_attack, p_defense, m_level, m_attack, m_defense.\n";
+      std::cout << "Usage is p_spd, m_spd.\n";
       exit(0);
    }
    else
    {
+      srand(time(0));
       double p_hit, m_hit, min = 0.0;
       int p_spd, m_spd = 0;
-      p_spd = 1;
-      m_spd = 1;
+      p_spd = atoi(argv[1]);
+      m_spd = atoi(argv[2]);
       min = 0.2;
       if (!(p_spd == 0 || m_spd == 0))
       {
-      p_hit = ((2 * p_spd - m_spd)/p_spd)*(.4);
-      m_hit = ((2 * m_spd - p_spd)/m_spd)*(.4);
+      p_hit = ((2 * p_spd - m_spd)/p_spd)*(0.4+0.5*(float)rand()/RAND_MAX);
+      m_hit = ((2 * m_spd - p_spd)/m_spd)*(0.4+0.5*(float)rand()/RAND_MAX);
       if (p_hit <= min)
          p_hit = min;
 
@@ -29,12 +30,12 @@ int main()
       std::cout << "Pet Hit percentage is: " << p_hit << std::endl;
       std::cout << "Monster Hit percentage is: " << m_hit << std::endl;
 
-      if (m_hit >= 0.5)
+      if (m_hit >= (float)rand()/RAND_MAX)
          std::cout << "Hit was struck" << std::endl;
       else
          std::cout << "Monster missed, (no damage)" << std::endl;
 
-      if (p_hit >= 0.5)
+      if (p_hit >= (float)rand()/RAND_MAX)
          std::cout << "Hit was struck" << std::endl;
       else
          std::cout << "Pet missed, (no damage)" << std::endl;
