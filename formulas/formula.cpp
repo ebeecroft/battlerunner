@@ -1,6 +1,18 @@
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
+
+//Prototypes for functions
+double hitfunc(int speed1, int speed2); //Takes in the speed of two combatents
+double chancefunc(); //Returns a random number 
+int damagefunc(int attack1, int defense2, int level1); //Takes in the attack and level of one combatent and defense of other
+int coinsfunc(int level2); //Takes in the second combatents level
+int expgfunc(int level1); //Takes in the first combatents level
+int levelupfunc(int level1); //Takes in the first combatents level
+int statupfunc1(int stat1); //Takes in the first combatents stats
+int statupfunc2(int stat1); //Takes in the first combatents stats
+int startbattle(int health1, int attack1, int defense1, int speed1, int level1, int damage1, int health2, int attack2, int defense2, int speed2, int level2, int damage2); //Takes in all of the two combatents stats
+
 int main(int argc, char* argv[])
 {
    //Checks the arguements of argc to see if they are correct
@@ -12,26 +24,66 @@ int main(int argc, char* argv[])
    }
    else
    {
-      //Sets all local variables to 0 first
-      int p_level, p_atk, p_damage, m_level, m_atk, m_damage = 0;
-      double p_def, m_def = 0;
+      int p_hp, m_hp, p_damage, m_damage, m_spd, m_level, m_def, m_atk, p_spd, p_level, p_exp, p_def, p_atk, coins = 0;
+      
+      p_hp = 10;
+      m_hp = 10;
+      
+      //Start of Battle
+      if((p_hp > 0 && m_hp > 0)) //Do this if both hps are greater then Zero
+      {
+         double mhit, phit, pchance, mchance = 0;
+         //Calculate hit(Always running)
+         mhit = hitfunc(m_spd, p_spd);
+         phit = hitfunc(p_spd, m_spd);
 
-      //Pet Stats
-      p_level = atoi(argv[1]);
-      p_atk = atoi(argv[2]);
-      p_def = atoi(argv[3]);
+         //Calculate chance(Always running)
+         pchance = chancefunc();
+         mchance = chancefunc();
 
-      //Monster Stats
-      m_level = atoi(argv[4]);
-      m_atk = atoi(argv[5]);
-      m_def = atoi(argv[6]);
+         //Calculate Damage(Only if hit succeeds)
+         if(mhit >= mchance)
+            m_damage = damagefunc(m_atk, p_def, m_level);
+      
+         if(phit >= pchance)
+            p_damage = damagefunc(p_atk, m_def, p_level);
+      }
 
-      //Attacks useful only if hit ratio is greater then random number else no damage is dealt
-      m_damage = round((((m_atk + 3)/pow(p_def, 0.5))+pow(m_level,0.7))*(.8+.4*rand()));
-      p_damage = round((((p_atk + 3)/pow(m_def, 0.5))+pow(p_level,0.7))*(.8+.4*rand()));
-      std::cout << "Pet Damage dealt is: " << p_damage << std::endl;
-      std::cout << "Monster Damage dealt is: " << m_damage << std::endl;
+      //End of Battle
+      if((p_hp == 0 || m_hp == 0))
+      {
+         if((p_hp == 0 && m_hp == 0) || (p_hp > 0 && m_hp == 0)) //Win or Draw condition
+         {
+            int levelup, expgain, atkup, defup, spdup, hpup = 0;
+            if(p_hp > 0)
+            {
+               //Calculate Coin(Win only)
+               coins = coinsfunc(m_level);
+            }
+
+            //Calculate Experience(Win/Draw)
+            expgain = expgfunc(p_level);
+            levelup = levelupfunc(p_level);
+            p_exp += expgain;
+
+            if(p_exp > levelup)
+            {
+               //Calculate Stats(Levelup pet only)
+               atkup = statupfunc1(p_atk);
+               defup = statupfunc1(p_def);
+               spdup = statupfunc2(p_spd);
+               hpup = statupfunc2(p_hp);
+
+               //Update stats
+               p_level += 1;
+               p_atk += atkup;
+               p_def += defup;
+               p_spd += spdup;
+               p_hp += hpup;
+            }
+         }
+      }
    }
-   //m_damage and p_damage must be returned at the end of the fight round
+   //Return the data to the ruby function upon exit
    return 0;
 }

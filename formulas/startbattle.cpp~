@@ -1,0 +1,23 @@
+int startbattlefunc(int health1, int attack1, int defense1, int speed1, int level1, int &damage1, int health2, int attack2, int defense2, int speed2, int level2, int &damage2) //Takes in all of the two combatents stats
+{
+   //Start of Battle
+   if((p_hp > 0 && m_hp > 0)) //Do this if both hps are greater then Zero
+   {
+      double mhit, phit, pchance, mchance = 0;
+      //Calculate hit(Always running)
+      mhit = hitfunc(m_spd, p_spd);
+      phit = hitfunc(p_spd, m_spd);
+
+      //Calculate chance(Always running)
+      pchance = chancefunc();
+      mchance = chancefunc();
+
+      //Calculate Damage(Only if hit succeeds)
+      if(mhit >= mchance)
+         damage2 = damagefunc(m_atk, p_def, m_level);
+      
+      if(phit >= pchance)
+         damage1 = damagefunc(p_atk, m_def, p_level);
+   }
+   return 0;
+}
