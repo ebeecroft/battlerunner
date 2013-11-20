@@ -1,22 +1,14 @@
 #include <iostream>
-#include <math.h>
 #include <stdlib.h>
 
 //Prototypes for functions
-double hitfunc(int speed1, int speed2); //Takes in the speed of two combatents
-double chancefunc(); //Returns a random number 
-int damagefunc(int attack1, int defense2, int level1); //Takes in the attack and level of one combatent and defense of other
-int coinsfunc(int level2); //Takes in the second combatents level
-int expgfunc(int level1); //Takes in the first combatents level
-int levelupfunc(int level1); //Takes in the first combatents level
-int statupfunc1(int stat1); //Takes in the first combatents stats
-int statupfunc2(int stat1); //Takes in the first combatents stats
-int startbattle(int health1, int attack1, int defense1, int speed1, int level1, int damage1, int health2, int attack2, int defense2, int speed2, int level2, int damage2);
+int startbattlefunc(int health1, int attack1, int defense1, int speed1, int level1, int &damage1, int health2, int attack2, int defense2, int speed2, int level2, int &damage2); //Takes in all of the two combatents stats
+int endbattlefunc(int &health1, int &maxhealth, int &attack1, int &defense1, int &speed1, int &level1, int &experience, int &money, int health2, int level2); //Takes in some of the combatents stats
 
 int main(int argc, char* argv[])
 {
    //Checks the arguements of argc to see if they are correct
-   if (argc < 7 || argc > 7) 
+   if (argc < 16 || argc > 16) 
    {
       std::cout << "Monster is represented by m, Pet is represented by p.\n";
       std::cout << "Usage is p_level, p_attack, p_defense, m_level, m_attack, m_defense.\n";
@@ -24,65 +16,48 @@ int main(int argc, char* argv[])
    }
    else
    {
-      int p_hp, m_hp, p_damage, m_damage, m_spd, m_level, m_def, m_atk, p_spd, p_level, p_exp, p_def, p_atk, coins = 0;
-      
-      p_hp = 10;
-      m_hp = 10;
-      
-      //Start of Battle
-      if((p_hp > 0 && m_hp > 0)) //Do this if both hps are greater then Zero
+      //Variables specific to the general formula
+      int p_hp, p_maxhp, m_hp, p_damage, m_damage, m_spd, m_level, m_def, m_atk, p_spd, p_level, p_exp, p_def, p_atk, coins = 0;
+
+      //Sets variable data from ruby program
+      p_level =  atoi(argv[1]);
+      p_atk = atoi(argv[2]);
+      p_def = atoi(argv[3]);
+      p_spd = atoi(argv[4]);
+      p_hp = atoi(argv[5]);
+      p_maxhp = atoi(argv[6]);
+      p_exp = atoi(argv[7]);
+      coins = atoi(argv[8]); //Not useful initially
+      p_damage = atoi(argv[9]); //Not useful initially
+      m_damage = atoi(argv[10]); //Not useful initially
+      m_level = atoi(argv[11]);
+      m_def = atoi(argv[12]);
+      m_atk = atoi(argv[13]);
+      m_spd = atoi(argv[14]);
+      m_hp = atoi(argv[15]);
+
+      //The beginning of the battle between a pet and a monster      
+      startbattlefunc(p_hp, p_atk, p_def, p_spd, p_level, p_damage, m_hp, m_atk, m_def, m_spd, m_level, m_damage);
+
+      //The end of the battle between a pet and a monster
+      if ((p_hp == 0) || (m_hp == 0))
       {
-         double mhit, phit, pchance, mchance = 0;
-         //Calculate hit(Always running)
-         mhit = hitfunc(m_spd, p_spd);
-         phit = hitfunc(p_spd, m_spd);
-
-         //Calculate chance(Always running)
-         pchance = chancefunc();
-         mchance = chancefunc();
-
-         //Calculate Damage(Only if hit succeeds)
-         if(mhit >= mchance)
-            m_damage = damagefunc(m_atk, p_def, m_level);
-      
-         if(phit >= pchance)
-            p_damage = damagefunc(p_atk, m_def, p_level);
+         endbattlefunc(p_hp, p_maxhp, p_atk, p_def, p_spd, p_level, p_exp, coins, m_hp, m_level);
+         std::cout << p_hp << "," << p_maxhp << "," << p_atk << "," << p_def << "," << p_spd << "," << p_level << "," << p_exp << "," << coins;
+         //std::cout << all of the values you need with a comma between each (no spaces)   "1,2,3,4"
+      }
+      else
+      {
+          std::cout << p_damage << "," << m_damage;
       }
 
-      //End of Battle
-      if((p_hp == 0 || m_hp == 0))
+      /*for (int iterator = 1; iterator < argc; iterator++)
       {
-         if((p_hp == 0 && m_hp == 0) || (p_hp > 0 && m_hp == 0)) //Win or Draw condition
-         {
-            int levelup, expgain, atkup, defup, spdup, hpup = 0;
-            if(p_hp > 0)
-            {
-               //Calculate Coin(Win only)
-               coins = coinsfunc(m_level);
-            }
-
-            //Calculate Experience(Win/Draw)
-            expgain = expgfunc(p_level);
-            levelup = levelupfunc(p_level);
-            p_exp += expgain;
-
-            if(p_exp > levelup)
-            {
-               //Calculate Stats(Levelup pet only)
-               atkup = statupfunc1(p_atk);
-               defup = statupfunc1(p_def);
-               spdup = statupfunc2(p_spd);
-               hpup = statupfunc2(p_hp);
-
-               //Update stats
-               p_level += 1;
-               p_atk += atkup;
-               p_def += defup;
-               p_spd += spdup;
-               p_hp += hpup;
-            }
-         }
-      }
+         std::cout << argv[iterator];
+         if (iterator != argc-1)
+            std::cout << ",";
+      }*/
+      std::cout << "hello world";
    }
    //Return the data to the ruby function upon exit
    return 0;
