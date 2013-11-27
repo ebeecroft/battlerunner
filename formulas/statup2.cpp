@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdlib.h>
 #include <ctime>
 #include <math.h>
@@ -13,5 +12,8 @@ int statupfunc2(int stat1)
    max = 0.03; //maximum point for stat up
    chance = (float)rand()/RAND_MAX;
    statup = round(stat1*((base+max*chance)-1));
+   if (statup == 0)
+      statup = 1;
+
    return statup;
 }

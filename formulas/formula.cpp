@@ -4,7 +4,7 @@
 //Prototypes for functions
 int startbattlefunc(int health1, int attack1, int defense1, int speed1, int level1, int &damage1, int health2, int attack2, int defense2, int speed2, int level2, int &damage2); //Takes in all of the two combatents stats
 int endbattlefunc(int &health1, int &maxhealth, int &attack1, int &defense1, int &speed1, int &level1, int &experience, int &money, int health2, int level2); //Takes in some of the combatents stats
-int rubyinitializerfunc(int &health1, int &maxhealth, int &health2, int &damage1, int &damage2, int &speed2, int &level2, int &defense2, int &attack2, int &speed1, int &level1, int &experience, int &defense1, int &attack1, int &money, char *argv[]); //A function that initializes variables for a formula
+int rubyinitializerfunc(int &health1, int &maxhealth, int &level1, int &experience, int &attack1, int &defense1, int &speed1, int &damage1, int &health2, int &level2, int &attack2, int &defense2, int &speed2, int &damage2, int &money, char *argv[]); //A function that initializes variables for a formula
 
 int main(int argc, char* argv[])
 {
@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
       int p_hp, p_maxhp, m_hp, p_damage, m_damage, m_spd, m_level, m_def, m_atk, p_spd, p_level, p_exp, p_def, p_atk, coins = 0;
 
       //Ruby initializer to set variable values
-      rubyinitializerfunc(p_hp, p_maxhp, m_hp, p_damage, m_damage, m_spd, m_level, m_def, m_atk, p_spd, p_level, p_exp, p_def, p_atk, coins, argv);
+      rubyinitializerfunc(p_hp, p_maxhp, p_level, p_exp, p_atk, p_def, p_spd, p_damage, m_hp, m_level, m_atk, m_def, m_spd, m_damage, coins, argv);
 
       //The beginning of the battle between a pet and a monster      
       startbattlefunc(p_hp, p_atk, p_def, p_spd, p_level, p_damage, m_hp, m_atk, m_def, m_spd, m_level, m_damage);

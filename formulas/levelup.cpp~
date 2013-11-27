@@ -3,7 +3,7 @@
 #include <ctime>
 #include <math.h>
 
-int levelupfunc(int level1) //Takes in the first combatents level
+int levelupfunc(int level1)
 {
    //Performs calculation to get level up
    int lvlup, base = 0;

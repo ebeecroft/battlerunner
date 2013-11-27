@@ -3,7 +3,7 @@
 #include <ctime>
 #include <math.h>
 
-int statupfunc1(int stat1) //Takes in the first combatents stats
+int statupfunc1(int stat1)
 {
    //Performs calculation to get stat up
    srand(time(0));
@@ -13,5 +13,8 @@ int statupfunc1(int stat1) //Takes in the first combatents stats
    max = 0.05; //maximum point for stat up
    chance = (float)rand()/RAND_MAX;
    statup = round(stat1*((base+max*chance)-1));
+   if (statup == 0)
+      statup = 1;
+
    return statup;
 }

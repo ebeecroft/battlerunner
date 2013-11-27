@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdlib.h>
 #include <ctime>
 #include <math.h>

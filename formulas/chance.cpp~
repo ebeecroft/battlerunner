@@ -3,7 +3,7 @@
 #include <ctime>
 #include <math.h>
 
-double chancefunc(); //Returns a random number
+double chancefunc()
 {
    //Randomly selects a number to be compared with another number
    srand(time(0));

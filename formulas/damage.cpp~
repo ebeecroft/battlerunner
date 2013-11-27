@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <ctime>
+#include <math.h>
 
 int damagefunc(int attack1, int defense2, int level1)
 {
