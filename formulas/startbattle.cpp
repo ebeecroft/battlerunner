@@ -18,10 +18,10 @@ int startbattlefunc(int health1, int attack1, int defense1, int speed1, int leve
       mchance = chancefunc();
 
       //Calculate Damage(Only if hit succeeds)
-      if(mhit >= mchance)
+      if(mhit > mchance)
          damage2 = damagefunc(attack2, defense1, level2);
       
-      if(phit >= pchance)
+      if(phit > pchance)
          damage1 = damagefunc(attack1, defense2, level1);
    }
    return 0;

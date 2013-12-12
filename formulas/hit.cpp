@@ -10,5 +10,8 @@ double hitfunc(int speed1, int speed2)
    max = 0.5; //maximum point for hit
    chance = (float)rand()/RAND_MAX;
    hit = ((2*speed1-speed2)/speed1)*(base+max*chance);
+   if(hit < 0.2)
+      hit = 0.2;
+
    return hit;
 }
