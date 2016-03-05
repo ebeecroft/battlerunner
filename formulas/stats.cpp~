@@ -16,6 +16,7 @@ void gainStats(int petStats[], int monsterLevel, int& coins, int& experienceGain
    experienceGained = getExperience(monsterLevel);
    levelUp = getLevelUp(petStats[0]);
    int totalExperience = petStats[1] + experienceGained;
+//   std::cout << "My total experience is: " << totalExperience << std::endl;
    if(totalExperience > levelUp)
    {
       statsGained[0] = getStatIncrease(monsterLevel); //Attack
