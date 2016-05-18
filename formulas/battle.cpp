@@ -23,7 +23,7 @@ void battle(int petStats[], int monsterStats[], int& petDamage, int& monsterDama
       if(petStats[0] == monsterStats[0])
          petDamage = getDamage(petStats[1], monsterStats[2], petStats[0]);
       else
-         petDamage = getDamage(petStats[1], monsterStats[2], petStats[0], monsterStats[0]);
+         petDamage = getDamage2(petStats[1], monsterStats[2], petStats[0], monsterStats[0]);
    }
    else
       petDamage = 0;
@@ -33,7 +33,7 @@ void battle(int petStats[], int monsterStats[], int& petDamage, int& monsterDama
       if(petStats[0] == monsterStats[0])
          monsterDamage = getDamage(monsterStats[1], petStats[2], monsterStats[0]);
       else
-         monsterDamage = getDamage(monsterStats[1], petStats[2], monsterStats[0], petStats[0]);
+         monsterDamage = getDamage2(monsterStats[1], petStats[2], monsterStats[0], petStats[0]);
    }
    else
       monsterDamage = 0;
