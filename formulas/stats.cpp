@@ -3,7 +3,7 @@
 #include <math.h>
 int getCoins(int level);
 int getExperience(int level);
-int getStatIncrease(int level);
+//int getStatIncrease(int level);
 int getLevelUp(int level);
 
 void gainStats(int petStats[], int monsterLevel, int& coins, int& experienceGained, int statsGained[])
@@ -18,11 +18,12 @@ void gainStats(int petStats[], int monsterLevel, int& coins, int& experienceGain
    int totalExperience = petStats[1] + experienceGained;
    if(totalExperience > levelUp)
    {
-      statsGained[0] = getStatIncrease(monsterLevel); //Attack
+/*      statsGained[0] = getStatIncrease(monsterLevel); //Attack
       statsGained[1] = getStatIncrease(monsterLevel); //Defense
       statsGained[2] = getStatIncrease(monsterLevel); //Speed
       statsGained[3] = getStatIncrease(monsterLevel); //Health
       statsGained[4] = getStatIncrease(monsterLevel); //MaxHealth
+*/
       petStats[0] += 1; //Level
    }
 }
@@ -45,13 +46,13 @@ int getExperience(int level)
    return experience;
 }
 
-int getStatIncrease(int level)
+/*int getStatIncrease(int level)
 {
    //Calculates the stat increase based on the opponents level
    double maxStat = 2.0 * level;
    int stat = round((maxStat * rand()) / RAND_MAX);
    return stat;
-}
+}*/
 
 int getLevelUp(int level)
 {
